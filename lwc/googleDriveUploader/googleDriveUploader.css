@@ -1,0 +1,51 @@
+.gd-hidden-input {
+    display: none !important;
+}
+
+.gd-uploader-container {
+    width: 100%;
+}
+
+.gd-dropzone {
+    border: 2px dashed #c9c9c9;
+    border-radius: 6px;
+    background-color: #fafafa;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.25s ease-in-out;
+    cursor: pointer;
+}
+
+.gd-dropzone:hover {
+    border-color: #0176d3;
+    background-color: #f3f9fe;
+}
+
+.gd-drag-over {
+    border-color: #0176d3 !important;
+    background-color: #e0f2fe !important;
+    box-shadow: 0 0 10px rgba(1, 118, 211, 0.2);
+}
+
+.gd-file-preview-box {
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+}
+
+.gd-compact-wrapper {
+    display: inline-block;
+    position: relative;
+    padding: 2px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.gd-compact-btn {
+    border-radius: 50% !important;
+}
+
+.gd-upload-btn {
+    border-radius: 4px;
+    font-weight: 600;
+}

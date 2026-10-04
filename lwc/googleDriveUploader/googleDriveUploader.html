@@ -1,0 +1,113 @@
+<template>
+  <div class="gd-uploader-container">
+    
+    <!-- Compact Mode (Ideal for Inline Rows, Tables, or Header Utility Bars) -->
+    <template lwc:if={compact}>
+      <div 
+        class={compactClass} 
+        onclick={stopProp} 
+        ondragover={handleDragOver} 
+        ondragleave={handleDragLeave} 
+        ondrop={handleDrop}>
+          
+          <input 
+            type="file" 
+            multiple={allowMultiple} 
+            accept={acceptedFormats}
+            class="gd-hidden-input" 
+            onchange={handleFileChange} />
+          
+          <button 
+            class="slds-button slds-button_icon slds-button_icon-border-filled gd-compact-btn" 
+            type="button" 
+            title={iconTitle} 
+            onclick={openPicker} 
+            disabled={isLoading}>
+              <template lwc:if={isLoading}>
+                  <lightning-spinner alternative-text="Uploading" size="x-small"></lightning-spinner>
+              </template>
+              <template lwc:else>
+                  <lightning-icon icon-name="utility:upload" size="x-small" alternative-text="Upload"></lightning-icon>
+              </template>
+          </button>
+      </div>
+    </template>
+
+    <!-- Standard Card/Dropzone Mode -->
+    <template lwc:else>
+      <div class="slds-form-element">
+          <template lwc:if={label}>
+              <label class="slds-form-element__label slds-text-title_bold">{label}</label>
+          </template>
+          
+          <div class="slds-file-selector slds-file-selector_files">
+              <!-- Interactive Drag & Drop Area -->
+              <div 
+                  class={dropzoneClass}
+                  ondragover={handleDragOver}
+                  ondragleave={handleDragLeave}
+                  ondrop={handleDrop}>
+                  
+                  <input
+                      type="file"
+                      multiple={allowMultiple}
+                      accept={acceptedFormats}
+                      class="slds-file-selector__input slds-assistive-text"
+                      id="file-upload-input"
+                      onchange={handleFileChange}
+                  />
+                  
+                  <label class="slds-file-selector__body" for="file-upload-input">
+                      <span class="slds-file-selector__button slds-button slds-button_neutral">
+                          <lightning-icon icon-name="utility:upload" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                          Choose Files
+                      </span>
+                      <span class="slds-file-selector__text slds-medium-show">
+                          Or drag and drop files here · {limitLabel}
+                      </span>
+                  </label>
+              </div>
+          </div>
+
+          <!-- Selected File Badges Preview -->
+          <template lwc:if={hasFile}>
+              <div class="slds-m-top_x-small slds-p-around_x-small gd-file-preview-box">
+                  <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread">
+                      <div class="slds-grid slds-grid_vertical-align-center slds-truncate">
+                          <lightning-icon icon-name="doctype:attachment" size="small" class="slds-m-right_x-small"></lightning-icon>
+                          <div>
+                              <p class="slds-text-body_small slds-text-title_bold slds-truncate">{fileName}</p>
+                              <p class="slds-text-color_weak slds-text-body_small">{fileSizeFormatted}</p>
+                          </div>
+                      </div>
+                      
+                      <button 
+                          class="slds-button slds-button_icon slds-button_icon-error" 
+                          title="Remove selected files" 
+                          type="button"
+                          onclick={handleRemoveFile}>
+                          <lightning-icon icon-name="utility:close" size="x-small" alternative-text="Remove"></lightning-icon>
+                          <span class="slds-assistive-text">Remove file</span>
+                      </button>
+                  </div>
+              </div>
+          </template>
+
+          <!-- Upload Action Button -->
+          <template lwc:if={showUploadButton}>
+              <button 
+                  class="slds-button slds-button_brand slds-m-top_small slds-size_full gd-upload-btn" 
+                  type="button"
+                  onclick={handleManualUpload} 
+                  disabled={isLoading}>
+                  <template lwc:if={isLoading}>
+                      <lightning-spinner alternative-text="Uploading..." size="small"></lightning-spinner>
+                  </template>
+                  Upload to Google Drive
+              </button>
+          </template>
+      </div>
+    </template>
+
+  </div>
+</template>
